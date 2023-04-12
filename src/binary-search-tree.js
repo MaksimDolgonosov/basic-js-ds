@@ -94,42 +94,61 @@ class BinarySearchTree {
     return findNode(this.rootNode, data)
   }
 
-  remove(/* data */) {
+  remove(data) {
     //   throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
-  }
-
-  min() {
-    //   throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-    function min(enter) {
+    function removeNode(enter, currentData) {
       if (enter == null) {
         return null
-      } else if (enter.left == null) {
-        return enter.data
+
+      } else if (currentData < enter.data) {
+        
+        return removeNode(enter.left, currentData)
+
+      } else if (currentData > enter.data) {
+        return removeNode(enter.right, currentData)
+
       } else {
-        return min(enter.left)
+        return enter
       }
 
     }
-    return min(this.rootNode)
+    return removeNode(this.rootNode, data)
   }
 
-  max() {
-    //   throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-    function max(enter) {
-      if (enter == null) {
-        return null
-      } else if (enter.right == null) {
-        return enter.data
-      } else {
-        return max(enter.right)
-      }
 
+
+min() {
+  //   throw new NotImplementedError('Not implemented');
+  // remove line with error and write your code here
+  function min(enter) {
+    if (enter == null) {
+      return null
+    } else if (enter.left == null) {
+      return enter.data
+    } else {
+      return min(enter.left)
     }
-    return max(this.rootNode)
+
   }
+  return min(this.rootNode)
+}
+
+max() {
+  //   throw new NotImplementedError('Not implemented');
+  // remove line with error and write your code here
+  function max(enter) {
+    if (enter == null) {
+      return null
+    } else if (enter.right == null) {
+      return enter.data
+    } else {
+      return max(enter.right)
+    }
+
+  }
+  return max(this.rootNode)
+}
 
 
 }
