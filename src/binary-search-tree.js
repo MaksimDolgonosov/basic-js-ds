@@ -57,34 +57,30 @@ class BinarySearchTree {
     has(data) {
         // throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
-        console.log(this.rootNode)
-        // function hasNode(enter, currentData) {
-        //     console.log(currentData)
-        //     if (enter == null) {
-        //         return false
-        //     } else if (currentData < enter.data) {
-        //         return hasNode(enter.left, currentData)
+        function hasNode(enter, currentData) {
 
-        //     } else if (currentData > enter.data) {
-        //         return hasNode(enter.right, currentData)
+            if (enter == null) {
+                return false
+            } else if (currentData < enter.data) {
+                return hasNode(enter.left, currentData)
 
-        //     } else {
-        //         return true;
-        //     }
+            } else if (currentData > enter.data) {
+                return hasNode(enter.right, currentData)
 
-        // }
-        // // console.log(this.rootNode)
-        // return hasNode(this.rootNode, data)
+            } else {
+                return true;
+            }
+
+        }
+        // console.log(this.rootNode)
+        return hasNode(this.rootNode, data)
     }
 
-    had() {
-        console.log(this.rootNode)
-    }
+
 
     find(data) {
         //   throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
-        console.log(this.rootNode)
         function findNode(enter, currentData) {
             if (enter == null) {
                 return null
@@ -105,9 +101,8 @@ class BinarySearchTree {
     remove(data) {
         //   throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
+        this.rootNode = removeNode(this.rootNode, data)
 
-        //   throw new NotImplementedError('Not implemented');
-        // remove line with error and write your code here
         function minLeftNode(node) {
             if (node.left == null) {
                 return node
@@ -118,11 +113,11 @@ class BinarySearchTree {
         }
         function removeNode(enter, data) {
             if (enter == null) {
-                return null
-            } else if (enter.data > data) {
+                return null;
+            } else if (data < enter.data) {
                 enter.left = removeNode(enter.left, data);
                 return enter;
-            } else if (enter.data < data) {
+            } else if (data > enter.data) {
                 enter.right = removeNode(enter.right, data);
                 return enter;
             } else {
@@ -130,35 +125,44 @@ class BinarySearchTree {
                     enter = null;
                     return enter;
                 }
-
-                if (enter.left == null && enter.right !== null) {
+                if (enter.left == null) {
                     enter = enter.right;
                     return enter;
-                } else if (enter.left !== null && enter.right == null) {
+                } else if (enter.right == null) {
                     enter = enter.left;
                     return enter;
-                } else {
-                    let node = minLeftNode(enter.right);
-                    enter.data = node.data;
-                    enter.right = removeNode(enter.right, node.data);
-
                 }
+
+
+
+
+                let node = minLeftNode(enter.right);
+                console.log(node)
+
+                enter.data = node.data;
+
+                enter.right = removeNode(enter.right, node.data);
+                return enter;
+
+
 
             }
 
         }
-        this.rootNode = removeNode(this.rootNode, data)
+
     }
 
     min() {
         //   throw new NotImplementedError('Not implemented');
         // remove line with error and write your code here
         function min(enter) {
+
             if (enter == null) {
                 return null
             } else if (enter.left == null) {
                 return enter.data
             } else {
+                //    console.log(enter.left)
                 return min(enter.left)
             }
 
@@ -185,6 +189,21 @@ class BinarySearchTree {
 
 }
 
+const tree = new BinarySearchTree();
+tree.add(9);
+tree.add(14);
+tree.add(54);
+tree.add(2);
+tree.add(6);
+tree.add(8);
+tree.add(31);
+tree.add(1);
+tree.remove(6);
+console.log(tree.find(9));
+tree.remove(2);
+console.log(tree.find(9));
+console.log(tree.min());
+
 module.exports = {
-  BinarySearchTree
+    BinarySearchTree
 };
