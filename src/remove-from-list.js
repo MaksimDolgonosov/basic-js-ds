@@ -26,33 +26,33 @@ function removeKFromList(l, k) {
   // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
 
+  function checkNode(node) {
 
-  let newArr = l.map((item, i) => {
-    if (item.value = k) {
-      if (i != 0) {
-        l[i-1].next=l[i+1].value;
+    if (node.next) {
+      if (node.value == k && node.next) {
+        node.value = node.next.value;
+        node.next = node.next.next;
+
+        checkNode(node);
+      } else if (node.value == k && !node.next) {
+        node = null;
+        return node
+      } else {
+        checkNode(node.next);
+
       }
-      l.splice(i, 1);
-    } else {
-      return item;
-    }
+      if (node.next.value == k && !node.next.next) {
+        node.next = null;
+        return node;
+      }
 
-  })
-  console.log( newArr);
-}
-console.log(convertArrayToList([3, 1, 2, 3, 4, 5]));
-function convertArrayToList(arr) {
-  return arr.reverse().reduce((acc, cur) => {
-    if (acc) {
-      const node = new ListNode(cur);
-      node.next = acc;
-      return node;
     }
+    return node
+  }
 
-    return new ListNode(cur);
-  }, null);
+  return checkNode(l);
 }
-removeKFromList(convertArrayToList([3, 1, 2, 3, 4, 5]), 3);
+
 
 module.exports = {
   removeKFromList
