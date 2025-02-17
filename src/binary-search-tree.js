@@ -110,47 +110,65 @@ class BinarySearchTree {
   }
 
   remove(data) {
+
+
+    function minLeftNode(node) {
+
+      if (node.left == null) {
+        return node
+      } else {
+        return minLeftNode(node.left)
+      }
+
+    }
+
     if (data === this.rootNode.data) {
-      this.rootNode = this.rootNode.right
+      let node = minLeftNode(this.rootNode.right);
+      this.rootNode.data = node.data;
+      node.data = node.right.data
       return
     }
-    let node = this.rootNode;
-    while (node) {
+    // if (data === this.rootNode.data) {
+    //   this.rootNode = this.rootNode.right
+    //   return
+    // }
+    // let node = this.rootNode;
+    // while (node) {
 
-      if (data >= node.data) {
-        if (node.data === data) {
-          node.data = node.right.data
-          node.right = node.right ? node.right.right : null
-          node.left = node.right ? node.right.left : null
-          return;
-        } else {
+    //   if (data >= node.data) {
+    //     if (node.data === data) {
+    //       node.data = node.right.data
+    //       node.right = node.right ? node.right.right : null
+    //       node.left = node.right ? node.right.left : null
+    //       return;
+    //     } else {
 
-          node = node.right
+    //       node = node.right
 
-        }
-      } else if (data <= node.data) {
+    //     }
+    //   } else if (data <= node.data) {
 
-        if (node.data === data) {
+    //     if (node.data === data) {
 
-          if (node.left) {
-            node.data = node.left.data
-          } else {
+    //       if (node.left) {
+    //         node.data = node.left.data
+    //       } else {
 
-          }
+    //       }
 
-          if (node.left.left) {
-            node.left = node.left.left
-          } else {
-            node.left = null
-          }
+    //       if (node.left.left) {
+    //         node.left = node.left.left
+    //       } else {
+    //         node.left = null
+    //       }
 
-          return;
-        } else {
-          node = node.left
-        }
-      }
-    }
-    return null
+    //       return;
+    //     } else {
+    //       node = node.left
+    //     }
+    //   }
+    // }
+    return
   }
 
   min() {
