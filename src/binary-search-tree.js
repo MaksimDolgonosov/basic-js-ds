@@ -113,7 +113,6 @@ class BinarySearchTree {
 
 
     function minLeftNode(node) {
-
       if (node.left == null) {
         return node
       } else {
@@ -122,53 +121,44 @@ class BinarySearchTree {
 
     }
 
-    if (data === this.rootNode.data) {
-      let node = minLeftNode(this.rootNode.right);
-      this.rootNode.data = node.data;
-      node.data = node.right.data
-      return
+
+    this.rootNode = removeNode(this.rootNode, data)
+
+    function removeNode(enter, data) {
+      if (enter.data == null) {
+        return null;
+      } else if (data < enter.data) {
+        enter.left = removeNode(enter.left, data);
+        return enter;
+      } else if (data > enter.data) {
+        enter.right = removeNode(enter.right, data);
+        return enter;
+      } else {
+        if (enter.left == null && enter.right == null) {
+          enter = null;
+          return enter;
+        }
+        if (enter.left == null) {
+          enter = enter.right;
+          return enter;
+        } else if (enter.right == null) {
+          enter = enter.left;
+          return enter;
+        }
+
+
+        let node = minLeftNode(enter.right);
+        console.log(node)
+
+        enter.data = node.data;
+
+        enter.right = removeNode(enter.right, node.data);
+        return enter;
+
+
+
+      }
     }
-    // if (data === this.rootNode.data) {
-    //   this.rootNode = this.rootNode.right
-    //   return
-    // }
-    // let node = this.rootNode;
-    // while (node) {
-
-    //   if (data >= node.data) {
-    //     if (node.data === data) {
-    //       node.data = node.right.data
-    //       node.right = node.right ? node.right.right : null
-    //       node.left = node.right ? node.right.left : null
-    //       return;
-    //     } else {
-
-    //       node = node.right
-
-    //     }
-    //   } else if (data <= node.data) {
-
-    //     if (node.data === data) {
-
-    //       if (node.left) {
-    //         node.data = node.left.data
-    //       } else {
-
-    //       }
-
-    //       if (node.left.left) {
-    //         node.left = node.left.left
-    //       } else {
-    //         node.left = null
-    //       }
-
-    //       return;
-    //     } else {
-    //       node = node.left
-    //     }
-    //   }
-    // }
-    return
   }
 
   min() {
